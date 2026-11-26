@@ -1,0 +1,22 @@
+{
+  "name": "confere",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "core"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.json",
+    "placar": "tsx casos/placar.ts",
+    "gerar-casos": "tsx casos/gerar.ts",
+    "conferir": "tsx core/scripts/conferir.ts",
+    "atualizar-bancos": "tsx core/scripts/atualizar-bancos.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.7",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.2"
+  }
+}

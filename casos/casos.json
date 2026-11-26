@@ -1,0 +1,953 @@
+[
+  {
+    "id": "pix_legitimo-01",
+    "categoria": "pix_legitimo",
+    "demo": true,
+    "descricao": "Padaria cobra R$ 23,50 por Pix; a pessoa sabe o CNPJ da padaria.",
+    "entrada": {
+      "quem": {
+        "nome": "Padaria Pão Quente",
+        "tipo": "empresa",
+        "cnpj": "ZZPAOQ01000188"
+      },
+      "informado": {
+        "valorCentavos": 2350
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZPAOQ01000188520400005303986540523.505802BR5918PADARIA PAO QUENTE6009SAO PAULO62070503***63048996",
+      "consultas": {
+        "ZZPAOQ01000188": {
+          "razaoSocial": "PADARIA PAO QUENTE LTDA",
+          "nomeFantasia": "PAO QUENTE",
+          "situacao": "ATIVA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "confere",
+      "motivo": "Chave CNPJ igual ao CNPJ informado; empresa ativa; valor igual."
+    }
+  },
+  {
+    "id": "pix_legitimo-02",
+    "categoria": "pix_legitimo",
+    "demo": true,
+    "descricao": "Loja com CNPJ alfanumérico; a pessoa só sabe o nome.",
+    "entrada": {
+      "quem": {
+        "nome": "Acme Comércio",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix011412ABC34501DE355204000053039865802BR5913ACME COMERCIO6009SAO PAULO62070503***6304EF88",
+      "consultas": {
+        "12ABC34501DE35": {
+          "razaoSocial": "ACME COMERCIO LTDA",
+          "nomeFantasia": "ACME",
+          "situacao": "ATIVA",
+          "dataInicio": "2026-08-03"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "confere",
+      "motivo": "Chave CNPJ; a consulta pública traz ACME COMERCIO LTDA, que bate com o nome."
+    }
+  },
+  {
+    "id": "pix_legitimo-03",
+    "categoria": "pix_legitimo",
+    "demo": true,
+    "descricao": "Farmácia conhecida pelo nome fantasia; a razão social é outra.",
+    "entrada": {
+      "quem": {
+        "nome": "Farmácia Vida Boa",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZFARM09000164520400005303986540547.905802BR5917FARMACIA VIDA BOA6009SAO PAULO62070503***63044AB4",
+      "consultas": {
+        "ZZFARM09000164": {
+          "razaoSocial": "FV DROGARIA E PERFUMARIA LTDA",
+          "nomeFantasia": "FARMACIA VIDA BOA",
+          "situacao": "ATIVA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "confere",
+      "motivo": "O nome fantasia da consulta bate com o nome informado."
+    }
+  },
+  {
+    "id": "pix_legitimo-04",
+    "categoria": "pix_legitimo",
+    "demo": true,
+    "descricao": "Escola com nome longo: o código corta o nome em 25 caracteres.",
+    "entrada": {
+      "quem": {
+        "nome": "Escola Pequeno Saber Educação Infantil",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZESCO030001765204000053039865406980.005802BR5925ESCOLA PEQUENO SABER EDUC6009SAO PAULO62070503***6304298B",
+      "consultas": {
+        "ZZESCO03000176": {
+          "razaoSocial": "ESCOLA PEQUENO SABER EDUCACAO INFANTIL LTDA",
+          "situacao": "ATIVA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "confere",
+      "motivo": "Nome cortado não é diferença; a consulta do CNPJ bate com o nome."
+    }
+  },
+  {
+    "id": "pix_legitimo-05",
+    "categoria": "pix_legitimo",
+    "demo": true,
+    "descricao": "Mercado com acento no nome escrito no código.",
+    "entrada": {
+      "quem": {
+        "nome": "Mercado Bom Preço",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZMERC060001935204000053039865406156.905802BR5917MERCADO BOM PREÇO6009SAO PAULO62070503***63043892",
+      "consultas": {
+        "ZZMERC06000193": {
+          "razaoSocial": "MERCADO BOM PRECO LTDA",
+          "situacao": "ATIVA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "confere",
+      "motivo": "Acento não atrapalha a verificação nem a comparação."
+    }
+  },
+  {
+    "id": "pix_legitimo-06",
+    "categoria": "pix_legitimo",
+    "demo": true,
+    "descricao": "Oficina cujo banco põe a conta Pix no campo 27 do código, não no 26.",
+    "entrada": {
+      "quem": {
+        "nome": "Oficina Boa Roda",
+        "tipo": "empresa",
+        "cnpj": "ZZBOAR02000122"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020127360014br.gov.bcb.pix0114ZZBOAR020001225204000053039865406320.005802BR5916OFICINA BOA RODA6009SAO PAULO62070503***63040B89",
+      "consultas": {
+        "ZZBOAR02000122": {
+          "razaoSocial": "OFICINA BOA RODA LTDA",
+          "situacao": "ATIVA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "confere",
+      "motivo": "A conta Pix pode estar em qualquer campo de 26 a 51."
+    }
+  },
+  {
+    "id": "pix_legitimo-07",
+    "categoria": "pix_legitimo",
+    "demo": true,
+    "descricao": "Livraria on-line gera Pix dinâmico de R$ 89,90.",
+    "entrada": {
+      "quem": {
+        "nome": "Livraria Letra Viva",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "valorCentavos": 8990
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020101021226760014br.gov.bcb.pix2554psp.example.com/qr/v2/8b3da2f39a4140d1a91abd93113bd4415204000053039865802BR5919LIVRARIA LETRA VIVA6009SAO PAULO62070503***6304D9C4",
+      "cobranca": {
+        "revisao": 0,
+        "calendario": {
+          "criacao": "2026-11-25T12:00:00Z",
+          "apresentacao": "2026-11-25T12:01:00Z",
+          "expiracao": 3600
+        },
+        "valor": {
+          "original": "89.90"
+        },
+        "chave": "ZZLIVR10000197",
+        "txid": "CONFERE0SINTETICO0000000001",
+        "status": "ATIVA"
+      },
+      "consultas": {
+        "ZZLIVR10000197": {
+          "razaoSocial": "LIVRARIA LETRA VIVA LTDA",
+          "situacao": "ATIVA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "confere",
+      "motivo": "O conteúdo do Pix dinâmico traz chave CNPJ da livraria; valor igual."
+    }
+  },
+  {
+    "id": "pix_legitimo-08",
+    "categoria": "pix_legitimo",
+    "demo": true,
+    "descricao": "Condomínio manda Pix com vencimento; a chave é e-mail, mas a cobrança assinada traz o CNPJ.",
+    "entrada": {
+      "quem": {
+        "nome": "Condomínio Residencial Jardim das Flores",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "valorCentavos": 68500
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126810014br.gov.bcb.pix2559psp.example.com/qr/v2/cobv/1a2b3c4d5e6f47a8b9c0d1e2f3a4b5c65204000053039865802BR5922COND JARDIM DAS FLORES6009SAO PAULO62070503***630403B9",
+      "cobranca": {
+        "revisao": 0,
+        "calendario": {
+          "criacao": "2026-11-20T12:00:00Z",
+          "apresentacao": "2026-11-25T12:01:00Z",
+          "dataDeVencimento": "2026-12-10",
+          "validadeAposVencimento": 30
+        },
+        "devedor": {
+          "cnpj": "ZZDEVE12000115",
+          "nome": "EMPRESA FICTICIA DEVEDORA LTDA"
+        },
+        "valor": {
+          "original": "685.00",
+          "final": "685.00"
+        },
+        "chave": "financeiro@jardimdasflores.example.com",
+        "recebedor": {
+          "cnpj": "ZZJDFL11000122",
+          "nome": "CONDOMINIO RESIDENCIAL JARDIM DAS FLORES",
+          "logradouro": "RUA FICTICIA 100",
+          "cidade": "SAO PAULO",
+          "uf": "SP",
+          "cep": "01000000"
+        },
+        "txid": "CONFERE0SINTETICO0000000001",
+        "status": "ATIVA"
+      },
+      "consultas": {
+        "ZZJDFL11000122": {
+          "razaoSocial": "CONDOMINIO RESIDENCIAL JARDIM DAS FLORES",
+          "situacao": "ATIVA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "confere",
+      "motivo": "A cobrança com vencimento traz CNPJ e nome do recebedor, e a consulta bate."
+    }
+  },
+  {
+    "id": "pix_recebedor_trocado-01",
+    "categoria": "pix_recebedor_trocado",
+    "demo": false,
+    "descricao": "Golpista copia o nome da padaria no código, mas a chave é o CPF dele.",
+    "entrada": {
+      "quem": {
+        "nome": "Padaria Pão Quente",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126330014br.gov.bcb.pix0111CPF_TESTE_1520400005303986540523.505802BR5918PADARIA PAO QUENTE6009SAO PAULO62070503***63049A30"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Chave CPF quando a pessoa paga uma empresa."
+    }
+  },
+  {
+    "id": "pix_recebedor_trocado-02",
+    "categoria": "pix_recebedor_trocado",
+    "demo": true,
+    "descricao": "A pessoa sabe o CNPJ da oficina; o código leva a outro CNPJ.",
+    "entrada": {
+      "quem": {
+        "nome": "Oficina Boa Roda",
+        "tipo": "empresa",
+        "cnpj": "ZZBOAR02000122"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZGOLP050001725204000053039865406320.005802BR5916OFICINA BOA RODA6009SAO PAULO62070503***6304F1EC",
+      "consultas": {
+        "ZZGOLP05000172": {
+          "razaoSocial": "XPTO SOLUCOES DIGITAIS LTDA",
+          "situacao": "ATIVA",
+          "dataInicio": "2026-11-02"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "CNPJ da chave diferente do CNPJ informado."
+    }
+  },
+  {
+    "id": "pix_recebedor_trocado-03",
+    "categoria": "pix_recebedor_trocado",
+    "demo": true,
+    "descricao": "Nome certo no código, mas o CNPJ da chave é de outra empresa.",
+    "entrada": {
+      "quem": {
+        "nome": "Acme Comércio",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZOUTR040001055204000053039865802BR5913ACME COMERCIO6009SAO PAULO62070503***630414C3",
+      "consultas": {
+        "ZZOUTR04000105": {
+          "razaoSocial": "NOVA ERA INTERMEDIACOES LTDA",
+          "situacao": "ATIVA",
+          "dataInicio": "2026-10-30"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "A consulta mostra que o CNPJ da chave é de NOVA ERA INTERMEDIACOES LTDA."
+    }
+  },
+  {
+    "id": "pix_recebedor_trocado-04",
+    "categoria": "pix_recebedor_trocado",
+    "demo": true,
+    "descricao": "Mensagem falsa da livraria traz Pix com e-mail e nome de uma pessoa.",
+    "entrada": {
+      "quem": {
+        "nome": "Livraria Letra Viva",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126460014br.gov.bcb.pix0124marcos.alves@example.com520400005303986540589.905802BR5912MARCOS ALVES6009SAO PAULO62070503***6304E1FA"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Nome escrito no código claramente diferente."
+    }
+  },
+  {
+    "id": "pix_recebedor_trocado-05",
+    "categoria": "pix_recebedor_trocado",
+    "demo": true,
+    "descricao": "A pessoa vai pagar a diarista; o Pix recebido está no nome de outra pessoa.",
+    "entrada": {
+      "quem": {
+        "nome": "Renata Lima",
+        "tipo": "pessoa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126580014br.gov.bcb.pix01367d9f3c2a-1b4e-4c8d-9a6f-0e5b2c7d1f3a5204000053039865406180.005802BR5912JOAO PEREIRA6009SAO PAULO62070503***63042E8E"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Nome escrito no código claramente diferente."
+    }
+  },
+  {
+    "id": "pix_recebedor_trocado-06",
+    "categoria": "pix_recebedor_trocado",
+    "demo": false,
+    "descricao": "Pix dinâmico da farmácia, mas o conteúdo buscado aponta para um CPF.",
+    "entrada": {
+      "quem": {
+        "nome": "Farmácia Vida Boa",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020101021226760014br.gov.bcb.pix2554psp.example.com/qr/v2/5d1f0c2e9b8a47c3a6e2f1d0c9b8a7e65204000053039865802BR5917FARMACIA VIDA BOA6009SAO PAULO62070503***6304BD6C",
+      "cobranca": {
+        "revisao": 0,
+        "calendario": {
+          "criacao": "2026-11-25T12:00:00Z",
+          "apresentacao": "2026-11-25T12:01:00Z",
+          "expiracao": 3600
+        },
+        "valor": {
+          "original": "47.90"
+        },
+        "chave": "CPF_TESTE_2",
+        "txid": "CONFERE0SINTETICO0000000001",
+        "status": "ATIVA"
+      }
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "O conteúdo do Pix dinâmico traz chave CPF; a pessoa paga uma empresa."
+    }
+  },
+  {
+    "id": "pix_recebedor_trocado-07",
+    "categoria": "pix_recebedor_trocado",
+    "demo": true,
+    "descricao": "Boleto de mensalidade com Pix: a cobrança assinada é de outra empresa.",
+    "entrada": {
+      "quem": {
+        "nome": "Escola Pequeno Saber",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126810014br.gov.bcb.pix2559psp.example.com/qr/v2/cobv/1a2b3c4d5e6f47a8b9c0d1e2f3a4b5c65204000053039865802BR5920ESCOLA PEQUENO SABER6009SAO PAULO62070503***6304FD53",
+      "cobranca": {
+        "revisao": 0,
+        "calendario": {
+          "criacao": "2026-11-20T12:00:00Z",
+          "apresentacao": "2026-11-25T12:01:00Z",
+          "dataDeVencimento": "2026-12-10",
+          "validadeAposVencimento": 30
+        },
+        "devedor": {
+          "cnpj": "ZZDEVE12000115",
+          "nome": "EMPRESA FICTICIA DEVEDORA LTDA"
+        },
+        "valor": {
+          "original": "980.00",
+          "final": "980.00"
+        },
+        "chave": "ZZGOLP05000172",
+        "recebedor": {
+          "cnpj": "ZZGOLP05000172",
+          "nome": "XPTO SOLUCOES DIGITAIS LTDA",
+          "logradouro": "RUA FICTICIA 100",
+          "cidade": "SAO PAULO",
+          "uf": "SP",
+          "cep": "01000000"
+        },
+        "txid": "CONFERE0SINTETICO0000000001",
+        "status": "ATIVA"
+      },
+      "consultas": {
+        "ZZGOLP05000172": {
+          "razaoSocial": "XPTO SOLUCOES DIGITAIS LTDA",
+          "situacao": "ATIVA",
+          "dataInicio": "2026-11-02"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "A cobrança é de XPTO SOLUCOES DIGITAIS LTDA, não da escola."
+    }
+  },
+  {
+    "id": "pix_recebedor_trocado-08",
+    "categoria": "pix_recebedor_trocado",
+    "demo": true,
+    "descricao": "A pessoa vai pagar a diarista; a chave é o CNPJ de uma empresa desconhecida.",
+    "entrada": {
+      "quem": {
+        "nome": "Renata Lima",
+        "tipo": "pessoa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZOUTR040001055204000053039865406180.005802BR5911RENATA LIMA6009SAO PAULO62070503***630422D2",
+      "consultas": {
+        "ZZOUTR04000105": {
+          "razaoSocial": "NOVA ERA INTERMEDIACOES LTDA",
+          "situacao": "ATIVA",
+          "dataInicio": "2026-10-30"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "O CNPJ da chave é de NOVA ERA INTERMEDIACOES LTDA."
+    }
+  },
+  {
+    "id": "pix_adulterado-01",
+    "categoria": "pix_adulterado",
+    "demo": true,
+    "descricao": "Alguém trocou o valor de 23,50 para 28,50 no texto, sem refazer a verificação.",
+    "entrada": {
+      "quem": {
+        "nome": "Padaria Pão Quente",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZPAOQ01000188520400005303986540528.505802BR5918PADARIA PAO QUENTE6009SAO PAULO62070503***63048996",
+      "consultas": {
+        "ZZPAOQ01000188": {
+          "razaoSocial": "PADARIA PAO QUENTE LTDA",
+          "nomeFantasia": "PAO QUENTE",
+          "situacao": "ATIVA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "A verificação (CRC) não bate."
+    }
+  },
+  {
+    "id": "pix_adulterado-02",
+    "categoria": "pix_adulterado",
+    "demo": true,
+    "descricao": "O código chegou cortado na mensagem.",
+    "entrada": {
+      "quem": {
+        "nome": "Padaria Pão Quente",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZPAOQ01000188520400005303986540523.505802BR5918PADARIA PAO QUENTE6009SAO PAUL"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Código quebrado: os campos não fecham."
+    }
+  },
+  {
+    "id": "pix_adulterado-03",
+    "categoria": "pix_adulterado",
+    "demo": false,
+    "descricao": "Código com verificação certa, mas com uma chave CPF de dígitos inválidos.",
+    "entrada": {
+      "quem": {
+        "nome": "Renata Lima",
+        "tipo": "pessoa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126330014br.gov.bcb.pix0111123456789005204000053039865406180.005802BR5911RENATA LIMA6009SAO PAULO62070503***630455E2"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "A chave tem dígitos inválidos."
+    }
+  },
+  {
+    "id": "pix_adulterado-04",
+    "categoria": "pix_adulterado",
+    "demo": true,
+    "descricao": "Pix dinâmico com endereço apontando para um número de IP, fora do padrão do Banco Central.",
+    "entrada": {
+      "quem": {
+        "nome": "Mercado Bom Preço",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126730014br.gov.bcb.pix2551203.0.113.10/qr/v2/8b3da2f39a4140d1a91abd93113bd4415204000053039865802BR5917MERCADO BOM PRECO6009SAO PAULO62070503***6304FEF5"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Endereço do Pix dinâmico fora do padrão."
+    }
+  },
+  {
+    "id": "boleto_legitimo-01",
+    "categoria": "boleto_legitimo",
+    "demo": true,
+    "descricao": "Condomínio de dezembro; banco, valor e vencimento batem com o boleto impresso.",
+    "entrada": {
+      "quem": {
+        "nome": "Condomínio Residencial Jardim das Flores",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "valorCentavos": 68500,
+        "vencimento": "2026-12-10",
+        "bancoCodigo": "341"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "34191090080012345678212345678903616560000068500"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Tudo bate, mas a linha não traz o nome de quem recebe."
+    }
+  },
+  {
+    "id": "boleto_legitimo-02",
+    "categoria": "boleto_legitimo",
+    "demo": true,
+    "descricao": "Mensalidade escolar com valor informado.",
+    "entrada": {
+      "quem": {
+        "nome": "Escola Pequeno Saber",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "valorCentavos": 120000
+      },
+      "hoje": "2026-11-25",
+      "boleto": "00190000090234567890412345170000216510000120000"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "A linha não traz o nome de quem recebe."
+    }
+  },
+  {
+    "id": "boleto_legitimo-03",
+    "categoria": "boleto_legitimo",
+    "demo": true,
+    "descricao": "Conta de internet; a pessoa não informa nada além do nome.",
+    "entrada": {
+      "quem": {
+        "nome": "Provedor Rede Rápida",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "23793381029000123456770001234502116610000009990"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "A linha não traz o nome de quem recebe."
+    }
+  },
+  {
+    "id": "boleto_legitimo-04",
+    "categoria": "boleto_legitimo",
+    "demo": true,
+    "descricao": "Compra em loja on-line, boleto emitido por instituição de pagamento.",
+    "entrada": {
+      "quem": {
+        "nome": "Acme Comércio",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "valorCentavos": 34990,
+        "vencimento": "2026-11-30"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "26090001000000005550900111000006416460000034990"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "A linha não traz o nome de quem recebe."
+    }
+  },
+  {
+    "id": "boleto_legitimo-05",
+    "categoria": "boleto_legitimo",
+    "demo": true,
+    "descricao": "Boleto de doação sem valor fixo (valor zerado na linha).",
+    "entrada": {
+      "quem": {
+        "nome": "Associação Amigos do Bairro",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "10491234566700010004900000000174816660000000000"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Sem valor fixo e sem nome na linha."
+    }
+  },
+  {
+    "id": "boleto_legitimo-06",
+    "categoria": "boleto_legitimo",
+    "demo": true,
+    "descricao": "Boleto sem vencimento no código (fator 0000).",
+    "entrada": {
+      "quem": {
+        "nome": "Oficina Boa Roda",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "valorCentavos": 15000
+      },
+      "hoje": "2026-11-25",
+      "boleto": "03399028270335666124357800201014100000000015000"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Sem vencimento no código e sem nome na linha."
+    }
+  },
+  {
+    "id": "boleto_divergente-01",
+    "categoria": "boleto_divergente",
+    "demo": true,
+    "descricao": "A linha recebida por e-mail cobra R$ 685,00; o boleto do condomínio é de R$ 585,00.",
+    "entrada": {
+      "quem": {
+        "nome": "Condomínio Residencial Jardim das Flores",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "valorCentavos": 58500
+      },
+      "hoje": "2026-11-25",
+      "boleto": "34191090080012345678212345678903616560000068500"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Valor da linha diferente do informado."
+    }
+  },
+  {
+    "id": "boleto_divergente-02",
+    "categoria": "boleto_divergente",
+    "demo": true,
+    "descricao": "Vencimento da linha diferente do que está impresso.",
+    "entrada": {
+      "quem": {
+        "nome": "Escola Pequeno Saber",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "vencimento": "2026-12-05"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "00190000090234567890412345170000916540000120000"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Vencimento da linha diferente do informado."
+    }
+  },
+  {
+    "id": "boleto_divergente-03",
+    "categoria": "boleto_divergente",
+    "demo": true,
+    "descricao": "Boleto impresso com logo do Itaú (341), mas a linha é de outro banco, com dígitos válidos.",
+    "entrada": {
+      "quem": {
+        "nome": "Condomínio Residencial Jardim das Flores",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "valorCentavos": 68500,
+        "bancoCodigo": "341"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "23794441243450000005355000111009116560000068500"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Banco da linha diferente do banco impresso."
+    }
+  },
+  {
+    "id": "boleto_divergente-04",
+    "categoria": "boleto_divergente",
+    "demo": true,
+    "descricao": "Linha com código de banco fora da lista do Banco Central; o impresso diz Caixa (104).",
+    "entrada": {
+      "quem": {
+        "nome": "Associação Amigos do Bairro",
+        "tipo": "empresa"
+      },
+      "informado": {
+        "bancoCodigo": "104"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "99991234596700010004900000000174816660000005000"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Banco da linha diferente do banco impresso."
+    }
+  },
+  {
+    "id": "boleto_divergente-05",
+    "categoria": "boleto_divergente",
+    "demo": true,
+    "descricao": "Alguém trocou o código do banco na linha sem recalcular o dígito do primeiro bloco.",
+    "entrada": {
+      "quem": {
+        "nome": "Provedor Rede Rápida",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "23893381029000123456770001234502116610000009990"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Dígito do bloco 1 não bate."
+    }
+  },
+  {
+    "id": "boleto_divergente-06",
+    "categoria": "boleto_divergente",
+    "demo": true,
+    "descricao": "Um número do segundo bloco foi trocado.",
+    "entrada": {
+      "quem": {
+        "nome": "Escola Pequeno Saber",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "00190000090234577890412345170000216510000120000"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Dígito do bloco 2 não bate."
+    }
+  },
+  {
+    "id": "boleto_divergente-07",
+    "categoria": "boleto_divergente",
+    "demo": true,
+    "descricao": "Um número do terceiro bloco foi trocado.",
+    "entrada": {
+      "quem": {
+        "nome": "Acme Comércio",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "26090001000000005550900112000006416460000034990"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "Dígito do bloco 3 não bate."
+    }
+  },
+  {
+    "id": "boleto_divergente-08",
+    "categoria": "boleto_divergente",
+    "demo": true,
+    "descricao": "O valor no fim da linha foi alterado à mão.",
+    "entrada": {
+      "quem": {
+        "nome": "Oficina Boa Roda",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "boleto": "03399028270335666124357800201014116470000016000"
+    },
+    "esperado": {
+      "veredito": "nao_confere",
+      "motivo": "O dígito verificador geral não bate."
+    }
+  },
+  {
+    "id": "nao_consegui_confirmar-01",
+    "categoria": "nao_consegui_confirmar",
+    "demo": true,
+    "descricao": "Loja usa chave aleatória; o nome escrito no código bate, mas isso não prova nada.",
+    "entrada": {
+      "quem": {
+        "nome": "Padaria Pão Quente",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126580014br.gov.bcb.pix01363f6c1e2a-9b7d-4e5f-8a1c-2d3e4f5a6b7c520400005303986540523.505802BR5918PADARIA PAO QUENTE6009SAO PAULO62070503***6304022A"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Chave aleatória: só o banco mostra o dono. Orientar o print."
+    }
+  },
+  {
+    "id": "nao_consegui_confirmar-02",
+    "categoria": "nao_consegui_confirmar",
+    "demo": false,
+    "descricao": "Pagamento à diarista pela chave CPF; o nome no código bate.",
+    "entrada": {
+      "quem": {
+        "nome": "Renata Lima",
+        "tipo": "pessoa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126330014br.gov.bcb.pix0111CPF_TESTE_35204000053039865406180.005802BR5911RENATA LIMA6009SAO PAULO62070503***6304537F"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Não há consulta pública de CPF. Orientar o print."
+    }
+  },
+  {
+    "id": "nao_consegui_confirmar-03",
+    "categoria": "nao_consegui_confirmar",
+    "demo": true,
+    "descricao": "Pix dinâmico cujo conteúdo não pôde ser buscado.",
+    "entrada": {
+      "quem": {
+        "nome": "Livraria Letra Viva",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020101021226760014br.gov.bcb.pix2554psp.example.com/qr/v2/8b3da2f39a4140d1a91abd93113bd4415204000053039865802BR5919LIVRARIA LETRA VIVA6009SAO PAULO62070503***6304D9C4",
+      "cobranca": "indisponivel"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Sem o conteúdo, não se sabe a chave."
+    }
+  },
+  {
+    "id": "nao_consegui_confirmar-04",
+    "categoria": "nao_consegui_confirmar",
+    "demo": true,
+    "descricao": "Chave CNPJ, mas a consulta pública está fora do ar.",
+    "entrada": {
+      "quem": {
+        "nome": "Mercado Bom Preço",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZMERC060001935204000053039865406156.905802BR5917MERCADO BOM PRECO6009SAO PAULO62070503***6304869F",
+      "consultas": {
+        "ZZMERC06000193": "indisponivel"
+      }
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Consulta indisponível nunca vira confere."
+    }
+  },
+  {
+    "id": "nao_consegui_confirmar-05",
+    "categoria": "nao_consegui_confirmar",
+    "demo": true,
+    "descricao": "Chave CNPJ de uma empresa que a Receita mostra como baixada.",
+    "entrada": {
+      "quem": {
+        "nome": "Oficina Boa Roda",
+        "tipo": "empresa",
+        "cnpj": "ZZBOAR02000122"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126360014br.gov.bcb.pix0114ZZBOAR020001225204000053039865406320.005802BR5916OFICINA BOA RODA6009SAO PAULO62070503***6304CB82",
+      "consultas": {
+        "ZZBOAR02000122": {
+          "razaoSocial": "OFICINA BOA RODA LTDA",
+          "situacao": "BAIXADA",
+          "dataInicio": "2019-03-12"
+        }
+      }
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Empresa com situação diferente de ATIVA."
+    }
+  },
+  {
+    "id": "nao_consegui_confirmar-06",
+    "categoria": "nao_consegui_confirmar",
+    "demo": true,
+    "descricao": "Código de Pix Automático (autorização de débitos recorrentes).",
+    "entrada": {
+      "quem": {
+        "nome": "Provedor Rede Rápida",
+        "tipo": "empresa"
+      },
+      "hoje": "2026-11-25",
+      "pix": "00020126760014br.gov.bcb.pix2554psp.example.com/qr/v2/8b3da2f39a4140d1a91abd93113bd4415204000053039865802BR5920PROVEDOR REDE RAPIDA6009SAO PAULO62070503***80800014br.gov.bcb.pix2558psp.example.com/qr/v2/rec/2353c790eefb11eaadc10242ac12000263040B66"
+    },
+    "esperado": {
+      "veredito": "nao_consegui_confirmar",
+      "motivo": "Pix Automático fica fora do mínimo."
+    }
+  }
+]

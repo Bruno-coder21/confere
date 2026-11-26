@@ -1,0 +1,10 @@
+{
+  "name": "@confere/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Núcleo puro do Confere: leitura de Pix e boleto, validação de CNPJ e regras de veredito.",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

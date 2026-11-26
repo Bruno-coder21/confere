@@ -8,11 +8,15 @@ Projeto solo do Bruno para o Hack Brasil 2026, trilha Cibersegurança. "Pronto" 
 This codebase is yours: what it's for and how it's built are your call, and you'll keep building on it.
 
 ## Comandos
-Projeto ainda sem código. Definir na etapa 2 e trocar "a confirmar" pelo comando testado.
-- Instalar: `npm install` (a confirmar)
-- Rodar local: `npm run dev` (a confirmar)
-- Testes: `npm test` (a confirmar; rodar antes de dizer que terminou)
-- Build/lint: `npm run build` (a confirmar)
+Node 22. Testados na etapa 2 (26/11/2026).
+- Instalar: `npm install`
+- Testes: `npm test` (Vitest; rodar antes de dizer que terminou)
+- Tipos: `npm run build` (`tsc` sem emitir)
+- Placar dos 40 casos: `npm run placar`
+- Regerar os casos: `npm run gerar-casos` (só antes de o gabarito fechar)
+- Atualizar a lista de bancos do BC: `npm run atualizar-bancos`
+- Ler Pix e boletos reais, sem rede: `npm run conferir -- privado/reais.txt` (o Bruno roda no terminal dele). Responde a toda linha; sai com código 1 se nada foi lido ou se alguma linha não foi reconhecida.
+- Rodar local: `npm run dev` (a confirmar na etapa 3)
 - Publicar: Cloudflare Workers (a confirmar; só com o ok do Bruno)
 
 ## Stack e decisões
