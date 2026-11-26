@@ -67,7 +67,7 @@ Rotas do Worker:
 
 ## 5. Especificação do núcleo
 
-Conferido nas fontes oficiais em 25/11/2026 e implementado em `core/` (etapa 2). Cada regra tem teste com o exemplo publicado na fonte. Falta validar com um boleto e um Pix reais do Bruno, fora do repositório (`npm run conferir -- privado/reais.txt`).
+Conferido nas fontes oficiais em 25/11/2026 e implementado em `core/` (etapa 2). Cada regra tem teste com o exemplo publicado na fonte. Validado em 26/11/2026 com um Pix e um boleto reais do Bruno, fora do repositório: a leitura do `npm run conferir -- privado/reais.txt` bateu em todos os campos com um leitor independente.
 
 ### 5.1 Pix copia e cola
 
@@ -206,7 +206,7 @@ Quarenta casos em JSON, todos inventados. Cada caso tem: entrada, quem a pessoa 
 
 ## 10. Ainda não verificado
 
-- Formatos conferidos na fonte em 25/11 (§5). Validação real em 26/11: o Bruno conferiu um Pix e um boleto reais com o app do banco e com um leitor independente, e todos os campos bateram. A leitura pelo próprio Confere (`npm run conferir`) falhou em silêncio: o arquivo só tinha as linhas de comentário do modelo. O script foi corrigido para nunca ficar em silêncio; falta rodar de novo para confirmar que a leitura do Confere também bate.
+- Formatos conferidos na fonte em 25/11 e validados com dados reais em 26/11 (§5). Gabarito dos 40 casos ainda sem a revisão do Bruno; até lá, `casos/` não está fechado.
 - O reinício do fator do boleto em 22/02/2025 está no manual do Santander e em fontes secundárias; o comunicado da própria FEBRABAN não foi localizado.
 - Consulta de CNPJ: Minha Receita e BrasilAPI funcionam hoje, mas não publicam termos de uso nem SLA.
 - Pix dinâmico: o Manual de Segurança do SFN (regras da assinatura JWS e do acesso ao endereço) deu 404 no site do BC. Falta saber se o Worker consegue buscar e validar o conteúdo, e se os PSPs aceitam pedidos vindos da Cloudflare. Até isso ser provado na etapa 3, Pix dinâmico real dá "não consegui confirmar".
