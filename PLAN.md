@@ -93,7 +93,7 @@ Formato de campos encadeados: 2 dígitos de identificador, 2 dígitos de tamanho
 
 Chaves: CPF (11 dígitos), CNPJ (14 caracteres, **pode ter letras**), telefone (+55...), e-mail, aleatória (com hífens).
 
-O tamanho de cada campo conta caracteres (Manual do BR Code, seção 2.1). Se o código só fecha contando bytes (nome com acento), a leitura aceita com aviso. Campo ou subcampo repetido torna o código ambíguo: "não confere".
+O tamanho de cada campo conta caracteres (Manual do BR Code, seção 2.1). Se o código só fecha contando bytes (nome com acento), a leitura aceita com aviso. Campo ou subcampo repetido torna o código ambíguo: "não confere". Também é ambíguo, e dá "não confere", o código que admite duas leituras válidas com destinos diferentes: contando tamanho em caracteres ou em bytes, ou juntando de jeitos diferentes as partes de um código quebrado em linhas.
 
 Pix dinâmico: endereço sem "https://", até 77 caracteres, acessado só por HTTPS depois de validado. Resposta assinada (JWS, `application/jose`); só usar depois de verificar a assinatura. Cobrança imediata (`/cob/` ou sem fragmento) traz a chave e o valor, **sem o nome do recebedor**. Cobrança com vencimento (`/cobv/`) traz CPF ou CNPJ, nome e endereço do recebedor. Os dois trazem CPF e nome do devedor: dado pessoal que passa pelo Worker e não pode ser guardado.
 
@@ -143,9 +143,11 @@ Aprovadas por Bruno em 25/11/2026, depois da conferência nas fontes. Implementa
 
 **Pix — confere** só com prova por documento e consulta respondida, sem nenhum sinal acima:
 - chave CNPJ igual ao CNPJ informado, empresa ATIVA; ou
-- chave CNPJ (ou CNPJ da cobrança com vencimento) cuja consulta traz nome igual ao informado, empresa ATIVA **e aberta há pelo menos 90 dias** (decisão do Bruno, 26/11/2026: golpista pode abrir empresa nova com o nome fantasia de uma loja). Empresa mais nova, ou consulta sem data de abertura, dá "não consegui confirmar" com a data em destaque. Com o CNPJ informado pela pessoa, a idade da empresa não pesa.
+- chave CNPJ (inclusive a chave que vem no conteúdo do Pix dinâmico) cuja consulta traz nome igual ao informado, empresa ATIVA **e aberta há pelo menos 90 dias** (decisão do Bruno, 26/11/2026: golpista pode abrir empresa nova com o nome fantasia de uma loja). Empresa mais nova, ou consulta sem data de abertura, dá "não consegui confirmar" com a data em destaque. Com o CNPJ informado pela pessoa, a idade da empresa não pesa.
 
 Esses sinais valem para todo Pix lido, inclusive dinâmico sem conteúdo e Pix Automático.
+
+Só a chave decide para onde vai o dinheiro. O CNPJ e o nome escritos no campo recebedor da cobrança são informados pelo servidor da cobrança: servem como sinal contra (nome diferente, CPF quando se paga empresa), nunca como prova para "confere".
 
 **Pix — não consegui confirmar** em todo o resto, incluindo: chave e-mail, telefone, aleatória ou CPF com nome do campo 59 batendo; CNPJ informado com dígito errado; consulta indisponível; situação diferente de ATIVA; nome da consulta só parecido; Pix dinâmico cujo conteúdo não pôde ser buscado; cobrança sem valor ou com situação diferente de ATIVA; Pix Automático.
 

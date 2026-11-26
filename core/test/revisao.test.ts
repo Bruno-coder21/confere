@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { crc16Utf8 } from "../src/crc16";
 import { centavosParaValor, montarPix, tlv } from "../src/montar";
-import { lerPix } from "../src/pix";
+import { escolherLeitura, lerPix } from "../src/pix";
 import { validarLocation } from "../src/cobranca";
 import { decidir, type ConsultaCnpj, type EntradaVeredito } from "../src/veredito";
 
@@ -144,5 +144,46 @@ describe("tamanho dos campos contado em bytes (nome com acento)", () => {
     expect(l.integro).toBe(true);
     expect(l.nome).toBe(nome);
     expect(l.problemas.map((p) => p.codigo)).toContain("tamanho-bytes");
+  });
+});
+
+// Revisão de segurança do push (26/11/2026).
+describe("CNPJ do recebedor escrito na cobrança não prova nada", () => {
+  it("cobrança com vencimento, chave e-mail e CNPJ legítimo no campo recebedor → não consegui confirmar", () => {
+    // Um servidor falso pode escrever o CNPJ da loja no campo recebedor; o dinheiro vai para a chave.
+    const r = rodar({
+      pix: montarPix({ url: "psp.example.com/qr/v2/cobv/1a2b3c4d5e6f47a8b9c0d1e2f3a4b5c6", nome: "PADARIA PAO QUENTE", cidade: "SAO PAULO" }),
+      cobranca: {
+        chave: "golpista@example.com",
+        valor: { original: "50.00", final: "50.00" },
+        recebedor: { cnpj: CNPJ, nome: "PADARIA PAO QUENTE LTDA" },
+        status: "ATIVA",
+      },
+      consultas: { [CNPJ]: PADARIA },
+    });
+    expect(r.veredito).toBe("nao_consegui_confirmar");
+    expect(r.cnpjsParaConsultar).toEqual([]);
+  });
+});
+
+describe("código ambíguo", () => {
+  it("tamanho em caracteres e em bytes válidos, com destinos diferentes → não confere", () => {
+    // Campo 59 com 8 de tamanho: em caracteres, lê "ÃÃÃÃ0100"; em bytes, lê "ÃÃÃÃ" e
+    // sobra "0100" (campo 01 vazio). As duas leituras fecham e passam na verificação.
+    const s =
+      tlv("00", "01") + tlv("26", tlv("00", "br.gov.bcb.pix") + tlv("01", CNPJ)) + "52040000" + "5303986" + "5802BR" +
+      "5908" + "ÃÃÃÃ0100" + tlv("60", "SAO PAULO") + tlv("62", tlv("05", "***")) + "6304";
+    const l = lerPix(s + crc16Utf8(s));
+    expect(l.integro).toBe(true);
+    expect(l.problemas.map((p) => p.codigo)).toContain("ambiguo");
+    expect(rodar({ pix: s + crc16Utf8(s), consultas: { [CNPJ]: PADARIA } }).veredito).toBe("nao_confere");
+  });
+
+  it("escolherLeitura marca ambiguidade quando duas leituras válidas discordam no destino", () => {
+    const a = lerPix(montarPix({ chave: CNPJ, nome: "PADARIA PAO QUENTE", cidade: "SAO PAULO" }));
+    const b = lerPix(montarPix({ chave: "golpista@example.com", nome: "PADARIA PAO QUENTE", cidade: "SAO PAULO" }));
+    const c = lerPix(montarPix({ chave: CNPJ, nome: "PADARIA PAO QUENTE", cidade: "SAO PAULO" }));
+    expect(escolherLeitura([a, b], "ambíguo").problemas.some((p) => p.codigo === "ambiguo")).toBe(true);
+    expect(escolherLeitura([c, lerPix("lixo")], "ambíguo").problemas.some((p) => p.codigo === "ambiguo")).toBe(false);
   });
 });

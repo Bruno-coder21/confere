@@ -224,9 +224,11 @@ function decidirPix(entrada: EntradaVeredito, texto: string): Resultado {
   if (valor !== undefined) ev.push({ rotulo: "Valor", valor: formatarReais(valor) });
   else if (leitura.modelo === "estatico") ev.push({ rotulo: "Valor", valor: "não vem no código; você digita no banco" });
 
-  // CNPJ que identifica o recebedor por documento.
-  const cnpjRecebedor =
-    tipoChave === "cnpj" && chave ? chave.toUpperCase() : cobranca?.recebedor?.cnpj ? validarCnpj(cobranca.recebedor.cnpj).normalizado : undefined;
+  // CNPJ que identifica o recebedor por documento: só a chave. É a chave que
+  // decide para onde vai o dinheiro; o CNPJ do recebedor na cobrança é
+  // informado pelo servidor da cobrança e não pode servir de prova. Ele só
+  // entra como sinal contra (nome diferente, CPF quando se paga empresa).
+  const cnpjRecebedor = tipoChave === "cnpj" && chave ? chave.toUpperCase() : undefined;
   const consultaBruta = cnpjRecebedor ? entrada.consultas?.[cnpjRecebedor] : undefined;
   const consulta = consultaBruta !== undefined && consultaBruta !== "indisponivel" ? consultaBruta : undefined;
   const cnpjsParaConsultar = cnpjRecebedor && consultaBruta === undefined ? [cnpjRecebedor] : [];

@@ -216,19 +216,19 @@ export function gerarCasos(): Caso[] {
     },
     {
       categoria: "pix_legitimo",
-      descricao: "Condomínio manda Pix com vencimento; a chave é e-mail, mas a cobrança assinada traz o CNPJ.",
+      descricao: "Condomínio manda Pix com vencimento; a chave da cobrança é o CNPJ do condomínio.",
       entrada: {
         quem: quemEmpresa("Condomínio Residencial Jardim das Flores"),
         informado: { valorCentavos: 68500 },
         hoje: HOJE,
         pix: pix({ url: URL_COBV, nome: "COND JARDIM DAS FLORES" }),
-        cobranca: cobv("financeiro@jardimdasflores.example.com", "685.00", {
+        cobranca: cobv(CONDOMINIO.cnpj, "685.00", {
           cnpj: CONDOMINIO.cnpj,
           nome: "CONDOMINIO RESIDENCIAL JARDIM DAS FLORES",
         }),
         consultas: { [CONDOMINIO.cnpj]: CONDOMINIO.consulta },
       },
-      esperado: { veredito: "confere", motivo: "A cobrança com vencimento traz CNPJ e nome do recebedor, e a consulta bate." },
+      esperado: { veredito: "confere", motivo: "A chave da cobrança é o CNPJ do condomínio, e a consulta pública bate com o nome." },
     },
 
     // ---------------------------------------------------------- Pix recebedor trocado

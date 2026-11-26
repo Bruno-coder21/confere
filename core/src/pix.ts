@@ -76,14 +76,53 @@ export function lerPix(entrada: string): LeituraPix {
   const junta = /[ \t]*(?:\r\n|\r|\n|\u2028|\u2029)+[ \t]*/g;
   const candidatos = bases.flatMap((b) => [b.replace(/\r\n|\r|\n|\u2028|\u2029/g, ""), b.replace(junta, ""), b.replace(junta, " ")]);
   const leituras = [...new Set(candidatos)].map(lerPixUmaForma);
-  const escolhida = leituras.find((l) => l.integro && !temProblemaGrave(l)) ?? leituras[0] ?? lerPixUmaForma("");
+  const escolhida = escolherLeitura(
+    leituras,
+    "O código tem quebra de linha e, conforme o jeito de juntar as partes, leva a destinos diferentes. Código ambíguo.",
+  );
   if (temQuebra) {
     escolhida.problemas.push({ codigo: "quebra-de-linha", texto: "O código veio com quebra de linha no meio; as partes foram juntadas.", grave: false });
   }
   return escolhida;
 }
 
+/** O que define para onde vai o dinheiro e o que a pessoa vê. Duas leituras válidas têm de concordar nisso. */
+export function destinoPix(l: LeituraPix): string {
+  return JSON.stringify([l.modelo, l.idConta, l.chave, l.url, l.urlRecorrencia, l.fss, l.valorCentavos, l.nome, l.cidade, l.txid]);
+}
+
+const valida = (l: LeituraPix) => l.reconhecido && l.integro && !temProblemaGrave(l);
+
+/**
+ * Escolhe entre leituras alternativas do mesmo texto. Se mais de uma é válida e
+ * elas discordam no destino, o código é ambíguo: marca problema grave, porque o
+ * app do banco pode ler de outro jeito.
+ */
+export function escolherLeitura(leituras: LeituraPix[], textoAmbiguo: string): LeituraPix {
+  const validas = leituras.filter(valida);
+  const escolhida = validas[0] ?? leituras[0] ?? lerPixUmaForma("");
+  if (validas.some((l) => destinoPix(l) !== destinoPix(escolhida))) {
+    escolhida.problemas.push({ codigo: "ambiguo", texto: textoAmbiguo, grave: true });
+  }
+  return escolhida;
+}
+
 function lerPixUmaForma(texto: string): LeituraPix {
+  if (!/[^\x00-\x7f]/.test(texto)) return lerPixComParser(texto, lerTlv);
+  // Com acento, o tamanho dos campos pode ter sido contado em caracteres
+  // (o padrão) ou em bytes. Lê dos dois jeitos.
+  const porCaractere = lerPixComParser(texto, lerTlv);
+  const porByte = lerPixComParser(texto, lerTlvBytes);
+  if (!valida(porCaractere) && valida(porByte)) {
+    porByte.problemas.push({ codigo: "tamanho-bytes", texto: "O código conta o tamanho dos campos em bytes, não em caracteres. Aceito.", grave: false });
+  }
+  return escolherLeitura(
+    [porCaractere, porByte],
+    "Contando o tamanho dos campos em caracteres ou em bytes, o código leva a destinos diferentes. Código ambíguo.",
+  );
+}
+
+function lerPixComParser(texto: string, ler: (t: string) => ResultadoTlv): LeituraPix {
   const problemas: Problema[] = [];
   const leitura: LeituraPix = { reconhecido: false, integro: false, usoUnico: false, problemas };
   const grave = (codigo: string, t: string) => problemas.push({ codigo, texto: t, grave: true });
@@ -94,16 +133,7 @@ function lerPixUmaForma(texto: string): LeituraPix {
     return leitura;
   }
 
-  let ler = lerTlv;
-  let raiz = lerTlv(texto);
-  if (raiz.erro && /[^\x00-\x7f]/.test(texto)) {
-    const emBytes = lerTlvBytes(texto);
-    if (!emBytes.erro) {
-      ler = lerTlvBytes;
-      raiz = emBytes;
-      aviso("tamanho-bytes", "O código conta o tamanho dos campos em bytes, não em caracteres. Aceito.");
-    }
-  }
+  const raiz = ler(texto);
   if (raiz.erro) {
     grave("estrutura", `O código está quebrado. ${raiz.erro}`);
     return leitura;

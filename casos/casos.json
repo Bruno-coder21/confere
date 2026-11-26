@@ -203,7 +203,7 @@
     "id": "pix_legitimo-08",
     "categoria": "pix_legitimo",
     "demo": true,
-    "descricao": "Condomínio manda Pix com vencimento; a chave é e-mail, mas a cobrança assinada traz o CNPJ.",
+    "descricao": "Condomínio manda Pix com vencimento; a chave da cobrança é o CNPJ do condomínio.",
     "entrada": {
       "quem": {
         "nome": "Condomínio Residencial Jardim das Flores",
@@ -230,7 +230,7 @@
           "original": "685.00",
           "final": "685.00"
         },
-        "chave": "financeiro@jardimdasflores.example.com",
+        "chave": "ZZJDFL11000122",
         "recebedor": {
           "cnpj": "ZZJDFL11000122",
           "nome": "CONDOMINIO RESIDENCIAL JARDIM DAS FLORES",
@@ -252,7 +252,7 @@
     },
     "esperado": {
       "veredito": "confere",
-      "motivo": "A cobrança com vencimento traz CNPJ e nome do recebedor, e a consulta bate."
+      "motivo": "A chave da cobrança é o CNPJ do condomínio, e a consulta pública bate com o nome."
     }
   },
   {
